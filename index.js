@@ -122,12 +122,12 @@ let map;
 const mapContainer = document.getElementById('map-container');
 
 function SwitchView() {
-    if(currentView) {
-        camListContainer.style.display = 'none';
-        mapContainer.style.display = 'block';
-    } else {
+    if(!currentView) {
         camListContainer.style.display = 'grid';
         mapContainer.style.display = 'none';
+    } else {
+        camListContainer.style.display = 'none';
+        mapContainer.style.display = 'block';
     }
 
     currentView = !currentView; // Map/List View

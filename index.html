@@ -13,10 +13,7 @@
         <hr>
         <!-- Camera List -->
         <p id="load-in-text">Loading cameras...</p>
-        <div style="display: block" class="camlist-container" id="camlist-container"></div>
-        <div style="display: none" class="map-container" id="map-container">
-            <div id="camera-map"></div>
-        </div>
+        <div style="display: grid" class="camlist-container" id="camlist-container"></div>
         <!-- Camera List End -->
         <!-- Video Modal -->
         <div class="video-modal" id="video-modal">
@@ -26,6 +23,11 @@
             </div>
         </div>
         <!-- Video Modal End -->
+        <!-- Map -->
+        <div style="display: none" class="map-container" id="map-container">
+            <div id="camera-map"></div>
+        </div>
+        <!-- Map End -->
         <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script src="index.js"></script>
