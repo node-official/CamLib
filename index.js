@@ -124,7 +124,7 @@ function SwitchView() {
         camListContainer.style.display = 'none';
         mapContainer.style.display = 'block';
     } else {
-        camListContainer.style.display = 'block';
+        camListContainer.style.display = 'grid';
         mapContainer.style.display = 'none';
     }
 
