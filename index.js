@@ -91,8 +91,7 @@ function LoadCamList() {
         return response.json();
     })
     .then(data => {
-        console.log(data);
-        //ForEachList(data);
+        ForEachList(data);
     })
     .catch(error => {
         console.error(error);
