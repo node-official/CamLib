@@ -62,13 +62,8 @@ p {
     cursor: pointer;
 }
 
-.map-container {
-    width: 100%;
-    height: 960px;
-    overflow: hidden;
-}
 
 #camera-map {
     width: 100%;
-    height: 100%;
+    height: 960px;
 }
