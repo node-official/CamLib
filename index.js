@@ -6,32 +6,8 @@ const DATA = {
     CAMERA_IDS: [36693, 957, 36704, 14201, 1013, 17121, 45455, 14252, 4150, 974, 954, 12829, 997, 961, 970, 1668, 971, 15107, 21127, 14889, 4638, 995, 15044, 21960, 14980, 32670, 15159, 9530, 998, 999, 952, 101, 1005, 960, 9540, 17126, 973, 964, 966, 18598, 21883, 15155, 32648, 19385, 98, 16572, 19318, 100, 16446, 16377, 956, 19254, 953, 798, 20325, 1839, 17572, 15267, 12937, 97, 1014, 21885, 23325, 969, 9550, 3439, 1044, 19051, 959, 968, 17401, 965, 955, 23889, 102, 18802, 972, 35670, 967, 42626, 18588, 32673, 977, 14248, 23455, 35612, 958, 9531, 9536, 9537, 9517, 1003, 2618, 14413, 5523, 996, 963, 3822, 9563]
 };
 
-const TEST_DATA = {
-    "36693": {
-        "NAME": "250-летия Челябинска - Академика Макеева",
-        "ADDRESS": "Челябинск, ул. 250-летия Челябинска, д. 63",
-        "MEDIA": {
-            "SNAPSHOT": {
-                "LIVE": {
-                    "LOSSY": "https://cdn.cams.is74.ru/snapshot?uuid=ab7346d3-b64c-4754-a02a-96f01fd2a2fa&lossy=1"
-                }
-            },
-            "HLS": {
-                "LIVE": {
-                    "MAIN": "https://cdn.cams.is74.ru/hls/playlists/multivariant.m3u8?uuid=ab7346d3-b64c-4754-a02a-96f01fd2a2fa"
-                }
-            }
-        }
-    }
-};
-
-const camlistContainer = document.getElementById('camlist-container');
-
-//let cameraList = [];
-
-class Camera {
-    constructor(data) {}
-}
+const camListContainer = document.getElementById('camlist-container');
+const load_in_text = document.getElementById('load-in-text');
 
 function AddCamItem(snapshot_url, location_title, location_addr, hls_link) {
     const gridItem = document.createElement('div');
@@ -56,11 +32,10 @@ function AddCamItem(snapshot_url, location_title, location_addr, hls_link) {
     gridItem.appendChild(button);
     gridItem.appendChild(p);
     
-    camlistContainer.appendChild(gridItem);
+    camListContainer.appendChild(gridItem);
 }
 
 function StartStream(hls_link) {
-    //console.log(hls_link);
     openModal(hls_link);
 }
 
@@ -73,6 +48,8 @@ function ForEachList(data) {
             AddCamItem(itemData.MEDIA.SNAPSHOT.LIVE.LOSSY, itemData.NAME, itemData.ADDRESS, itemData.MEDIA.HLS.LIVE.MAIN);
         }
     }
+
+    load_in_text.style.display = 'none';
 }
 
 function LoadCamList() {
@@ -99,9 +76,6 @@ function LoadCamList() {
 }
 
 LoadCamList();
-
-// Used for debug
-//ForEachList(TEST_DATA);
 
 // MODAL WINDOW
 
