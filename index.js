@@ -78,7 +78,7 @@ function ForEachList(data) {
 function LoadCamList() {
     fetch(URL, {
         method: 'POST',
-        mode: 'cors',
+        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
@@ -89,11 +89,12 @@ function LoadCamList() {
     })
     .then(response => {
         if(!response.ok) throw new Error('Network error while request.');
-        return response.json();
+        //return response.json();
+        return response;
     })
     .then(data => {
-        //console.log(data);
-        ForEachList(data);
+        console.log(data);
+        //ForEachList(data);
     })
     .catch(error => {
         console.error(error);
