@@ -10,7 +10,7 @@ const camListContainer = document.getElementById('camlist-container');
 
 const load_in_text = document.getElementById('load-in-text');
 
-let currentView = 0; // 0 - Camera List, 1 - Camera Map
+let currentView = false; // 0 - Camera List, 1 - Camera Map
 
 function AddCamItem(snapshot_url, location_title, location_addr, hls_link) {
     const gridItem = document.createElement('div');
@@ -120,19 +120,15 @@ let map;
 const mapContainer = document.getElementById('map-container');
 
 function SwitchView() {
-    if(currentView === 0) {
+    if(currentView) {
         camListContainer.style.display = 'none';
         mapContainer.style.display = 'block';
-
-        currentView = 1; // To Map View.
-    }
-
-    if(currentView === 1) {
+    } else {
         camListContainer.style.display = 'block';
         mapContainer.style.display = 'none';
-
-        currentView = 0; // To List View.
     }
+
+    currentView = !currentView; // Map/List View
 }
 
 function AddCameraMarker(lat, lon, title, hls_link) {
