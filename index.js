@@ -7,7 +7,10 @@ const DATA = {
 };
 
 const camListContainer = document.getElementById('camlist-container');
+
 const load_in_text = document.getElementById('load-in-text');
+
+let currentView = 0; // 0 - Camera List, 1 - Camera Map
 
 function AddCamItem(snapshot_url, location_title, location_addr, hls_link) {
     const gridItem = document.createElement('div');
@@ -45,7 +48,10 @@ function ForEachList(data) {
     for(const key in parsedData) {
         if(parsedData.hasOwnProperty(key)) {
             const itemData = parsedData[key];
-            AddCamItem(itemData.MEDIA.SNAPSHOT.LIVE.LOSSY, itemData.NAME, itemData.ADDRESS, itemData.MEDIA.HLS.LIVE.MAIN);
+            let hls_link = itemData.MEDIA.HLS.LIVE.MAIN;
+
+            AddCamItem(itemData.MEDIA.SNAPSHOT.LIVE.LOSSY, itemData.NAME, itemData.ADDRESS, hls_link);
+            AddCameraMarker(itemData.POSITION.LATITUDE, itemData.POSITION.LONGITUDE, itemData.NAME, hls_link);
         }
     }
 
@@ -74,8 +80,6 @@ function LoadCamList() {
         console.error(error);
     });
 }
-
-LoadCamList();
 
 // MODAL WINDOW
 
@@ -108,3 +112,48 @@ function closeModal() {
     
     modal.style.display = "none";
 }
+
+// MAP
+
+let map;
+
+const mapContainer = document.getElementById('map-container');
+
+function SwitchView() {
+    if(currentView === 0) {
+        camListContainer.style.display = 'none';
+        mapContainer.style.display = 'block';
+
+        currentView = 1; // To Map View.
+    }
+
+    if(currentView === 1) {
+        camListContainer.style.display = 'block';
+        mapContainer.style.display = 'none';
+
+        currentView = 0; // To List View.
+    }
+}
+
+function AddCameraMarker(lat, lon, title, hls_link) {
+    let marker = L.marker({lat, lon}).addTo(map).bindPopup(title);
+
+    marker.addEventListener('click', () => {
+        StartStream(hls_link);
+    });
+}
+
+function LoadMap() {
+    map = L.map('map').setView([55.164440, 	61.436844], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+}
+
+// LOAD
+
+LoadMap();
+
+LoadCamList();
