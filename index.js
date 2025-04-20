@@ -119,10 +119,10 @@ function closeModal() {
 
 let map;
 
-const mapContainer = document.getElementById('map-container');
+const mapContainer = document.getElementById('camera-map');
 
 function SwitchView() {
-    if(!currentView) {
+    if(currentView) {
         camListContainer.style.display = 'grid';
         mapContainer.style.display = 'none';
     } else {
