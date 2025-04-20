@@ -144,7 +144,7 @@ function AddCameraMarker(lat, lon, title, hls_link) {
 }
 
 function LoadMap() {
-    map = L.map('map').setView([55.164440, 	61.436844], 13);
+    map = L.map('camera-map').setView([55.164440, 61.436844], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
