@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cam Lib Web Software</title>
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <h1>Cam Lib Web Software</h1>
+        <p>Cameras by "Интерсвязь" (<a href="https://stream.is74.ru" target="_blank">stream.is74.ru</a>)</p>
+        <!-- Camera List -->
+        <div class="camlist-container" id="camlist-container"></div>
+        <!-- Camera List End -->
+        <!-- Video Modal -->
+        <div class="video-modal" id="video-modal">
+            <div class="modal-content">
+                <span class="close" title="Close">&times;</span>
+                <video id="live-video" controls></video>
+            </div>
+        </div>
+        <!-- Video Modal End -->
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
