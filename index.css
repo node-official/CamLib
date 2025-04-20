@@ -62,6 +62,6 @@ p {
     cursor: pointer;
 }
 
-.camera-map {
+#camera-map {
     height: 960px;
 }

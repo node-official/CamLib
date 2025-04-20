@@ -1,3 +1,5 @@
+// Copyright Node, 2025.
+
 // CAM LIST
 
 const URL = 'https://cors-anywhere.herokuapp.com/https://cams.is74.ru/api/limited-info';
