@@ -1,6 +1,6 @@
 // CAM LIST
 
-const URL = 'https://cams.is74.ru/api/limited-info';
+const URL = 'https://cors-anywhere.herokuapp.com/https://cams.is74.ru/api/limited-info';
 
 const DATA = {
     CAMERA_IDS: [36693, 957, 36704, 14201, 1013, 17121, 45455, 14252, 4150, 974, 954, 12829, 997, 961, 970, 1668, 971, 15107, 21127, 14889, 4638, 995, 15044, 21960, 14980, 32670, 15159, 9530, 998, 999, 952, 101, 1005, 960, 9540, 17126, 973, 964, 966, 18598, 21883, 15155, 32648, 19385, 98, 16572, 19318, 100, 16446, 16377, 956, 19254, 953, 798, 20325, 1839, 17572, 15267, 12937, 97, 1014, 21885, 23325, 969, 9550, 3439, 1044, 19051, 959, 968, 17401, 965, 955, 23889, 102, 18802, 972, 35670, 967, 42626, 18588, 32673, 977, 14248, 23455, 35612, 958, 9531, 9536, 9537, 9517, 1003, 2618, 14413, 5523, 996, 963, 3822, 9563]
@@ -78,7 +78,6 @@ function ForEachList(data) {
 function LoadCamList() {
     fetch(URL, {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
@@ -89,8 +88,7 @@ function LoadCamList() {
     })
     .then(response => {
         if(!response.ok) throw new Error('Network error while request.');
-        //return response.json();
-        return response;
+        return response.json();
     })
     .then(data => {
         console.log(data);
