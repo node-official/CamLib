@@ -119,9 +119,78 @@ function closeModal() {
 
 let map;
 
-let cameraLayer;
+const trackList = new Map();
+
+const typeColors = {
+    1: '#29cc54', // Троллейбус
+    3: '#4aa4e8', // Трамвай
+    4: '#e8894a', // Автобус
+    DEFAULT: '#b3b3b3'
+};
+
+let cameraLayer; // Cameras
+let transportLayer; // GPS Tracking
 
 const mapContainer = document.getElementById('camera-map');
+
+function getColorByType(type) {
+    return typeColors[type] || typeColors.DEFAULT;
+}
+
+function UpdateOrCreateTrackMarker(entry) {
+    if(trackList.has(entry.id)) {
+        const marker = trackList.get(entry.id);
+        marker.setLatLng([entry.lat, entry.lng]);
+    } else {
+        const marker = createMarker(entry);
+        trackList.set(entry.id, marker);
+    }
+}
+
+function RemoveOutdatedTrackMarkers(validIds) {
+    for(const [id, marker] of trackList.entries()) {
+        if(!validIds.has(id)) {
+            transportLayer.removeLayer(marker);
+            trackList.delete(id);
+        }
+    }
+}
+
+function parseLine(line) {
+    line = line.trim().replace(/\s+z$/, '');
+    let parsedLine = line.split(',');
+
+    if(parsedLine.length < 7) return null;
+
+    const [TYPE, ROUTE_NUM, LNG, LAT, SPEED, UNKNOWN, ID] = parsedLine;
+    // "Unknown" is unused.
+
+    return {
+        type: TYPE,
+        route: ROUTE_NUM,
+        lng: LNG,
+        lat: LAT,
+        speed: SPEED,
+        id: ID
+    };
+}
+
+function parseResponseText(text) {
+    const lines = text.trim().split('\n');
+    const validIds = new Set();
+
+    for(const line of lines) {
+        const entry = parseLine(line);
+
+        if(!entry) continue;
+
+        validIds.add(entry.id);
+
+        UpdateOrCreateTrackMarker(entry);
+    }
+
+    RemoveOutdatedTrackMarkers(validIds);
+}
 
 function SwitchView() {
     if(currentView) {
@@ -143,6 +212,27 @@ function AddCameraMarker(lat, lon, title, hls_link) {
     });
 }
 
+function AddTransportMarker(entry) {
+    const color = getColorByType(entry.type);
+
+    const marker = L.circleMarker([entry.lat, entry.lng], {
+        radius: 6,
+        color: color,
+        fillColor: color,
+        fillOpacity: 0.8
+    });
+
+    marker.bindTooltip(entry.route, {
+        permanent: true,
+        direction: 'center',
+        className: 'route-label'
+    });
+
+    marker.addTo(transportLayer);
+
+    return marker;
+}
+
 function LoadMap() {
     map = L.map('camera-map').setView([55.164440, 61.436844], 13);
 
@@ -152,10 +242,21 @@ function LoadMap() {
     }).addTo(map);
 
     cameraLayer = L.layerGroup().addTo(map);
+    transportLayer = L.layerGroup().addTo(map);
 
     L.control.layers(null, {
-        'Cameras': cameraLayer
+        'Cameras': cameraLayer,
+        'City Transport': transportLayer
     }).addTo(map);
+}
+
+function FetchAndUpdateTrackData() {
+    const currentTime = Date.now();
+
+    fetch(`https://api.example.com/gps.txt?${currentTime}`)
+    .then(response => response.text())
+    .then(parseResponseText)
+    .catch(error => console.error(error));
 }
 
 // LOAD
@@ -163,3 +264,7 @@ function LoadMap() {
 LoadMap();
 
 LoadCamList();
+
+// City Transport Data
+FetchAndUpdateTrackData();
+setInterval(FetchAndUpdateTrackData, 15000);
