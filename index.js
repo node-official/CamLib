@@ -224,7 +224,7 @@ function AddTransportMarker(entry) {
     const color = getColorByType(entry.type);
 
     const markerTemplate = `
-        <div class="transport-marker" style="position: relative; transform: rotate(${45 + entry.direction}deg);">
+        <div class="transport-marker" title="${getTypeName(entry.type)} - ${entry.speed} km/h" style="position: relative; transform: rotate(${45 + entry.direction}deg);">
             <div class="circle" style="background-color: ${color};"></div>
             <div class="arrow" style="border-color: ${color};"></div>
         </div>
@@ -239,10 +239,10 @@ function AddTransportMarker(entry) {
 
     const marker = L.marker([entry.lat, entry.lng], { icon: markerIcon });
 
-    marker.bindTooltip(`<div title="${getTypeName(entry.type)} - ${entry.speed} km/h"><span class="route-label">${entry.route}</span></div>`, {
+    marker.bindTooltip(entry.route, {
         permanent: true,
         direction: 'center',
-        className: 'no-background'
+        className: 'route-label no-background'
     });
 
     marker.addTo(transportLayer);
