@@ -273,6 +273,10 @@ function LoadMap() {
         'Cameras': cameraLayer,
         'City Transport': transportLayer
     }).addTo(map);
+
+    setTimeout(() => {
+        mapContainer.style.display = 'none';
+    }, 2000);
 }
 
 function FetchAndUpdateTrackData() {
