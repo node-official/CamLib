@@ -255,7 +255,7 @@ function LoadMap() {
 function FetchAndUpdateTrackData() {
     const currentTime = Date.now();
 
-    fetch(`${GPS_TRACKING_URL}?${currentTime}`, {
+    fetch('https://cors-anywhere.herokuapp.com/https://gortrans74.ru/gps.txt', {
         method: 'GET',
         headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
