@@ -96,6 +96,10 @@ p {
     left: 2px;
 }
 
+.circle:hover {
+    border: #000 solid 1px;
+}
+
 .arrow {
     width: 0;
     height: 0;

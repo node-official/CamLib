@@ -170,8 +170,7 @@ function parseLine(line) {
 
     if(parsedLine.length < 7) return null;
 
-    const [TYPE, ROUTE_NUM, LNG, LAT, SPEED, UNKNOWN, ID] = parsedLine;
-    // "Unknown" is unused.
+    const [TYPE, ROUTE_NUM, LNG, LAT, SPEED, DIR, ID] = parsedLine;
 
     return {
         type: TYPE,
@@ -179,6 +178,7 @@ function parseLine(line) {
         lng: LNG / 1e6,
         lat: LAT / 1e6,
         speed: SPEED,
+        direction: DIR,
         id: ID
     };
 }
@@ -231,7 +231,7 @@ function AddTransportMarker(entry) {
     `;
 
     const markerIcon = L.divIcon({
-        className: 'custom-icon',
+        className: '',
         html: markerTemplate,
         iconSize: [24, 24],
         iconAnchor: [12, 12]
@@ -290,5 +290,5 @@ LoadMap();
 LoadCamList();
 
 // City Transport Data
-//FetchAndUpdateTrackData();
-//setInterval(FetchAndUpdateTrackData, 30000);
+FetchAndUpdateTrackData();
+setInterval(FetchAndUpdateTrackData, 45000);
