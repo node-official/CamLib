@@ -119,6 +119,8 @@ function closeModal() {
 
 let map;
 
+let cameraLayer;
+
 const mapContainer = document.getElementById('camera-map');
 
 function SwitchView() {
@@ -134,7 +136,7 @@ function SwitchView() {
 }
 
 function AddCameraMarker(lat, lon, title, hls_link) {
-    let marker = L.marker({lat, lon}).addTo(map).bindPopup(title);
+    let marker = L.marker({lat, lon}).addTo(cameraLayer).bindPopup(title);
 
     marker.addEventListener('click', () => {
         StartStream(hls_link);
@@ -147,6 +149,12 @@ function LoadMap() {
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Contributors'
+    }).addTo(map);
+
+    cameraLayer = L.layerGroup().addTo(map);
+
+    L.control.layers(null, {
+        'Cameras': cameraLayer
     }).addTo(map);
 }
 
