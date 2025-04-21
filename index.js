@@ -144,7 +144,7 @@ function UpdateOrCreateTrackMarker(entry) {
         const marker = trackList.get(entry.id);
         marker.setLatLng([entry.lat, entry.lng]);
     } else {
-        const marker = createMarker(entry);
+        const marker = AddTransportMarker(entry);
         trackList.set(entry.id, marker);
     }
 }
