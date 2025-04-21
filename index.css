@@ -96,8 +96,11 @@ p {
     left: 2px;
 }
 
+/* O-O /) Hate that, please. */
 .arrow {
     width: 0;
     height: 0;
     position: absolute;
+    display: none !important;
+    visibility: none !important;
 }
