@@ -131,6 +131,8 @@ const typeColors = {
 let cameraLayer; // Cameras
 let transportLayer; // GPS Tracking
 
+const GPS_TRACKING_URL = 'https://cors-anywhere.herokuapp.com/https://gortrans74.ru/gps.txt';
+
 const mapContainer = document.getElementById('camera-map');
 
 function getColorByType(type) {
@@ -253,7 +255,7 @@ function LoadMap() {
 function FetchAndUpdateTrackData() {
     const currentTime = Date.now();
 
-    fetch(`https://gortrans74.ru/gps.txt?${currentTime}`)
+    fetch(`${GPS_TRACKING_URL}?${currentTime}`)
     .then(response => response.text())
     .then(parseResponseText)
     .catch(error => console.error(error));
