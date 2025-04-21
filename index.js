@@ -218,7 +218,7 @@ function AddTransportMarker(entry) {
     const color = getColorByType(entry.type);
 
     const marker = L.circleMarker([entry.lat, entry.lng], {
-        radius: 6,
+        radius: 12,
         color: color,
         fillColor: color,
         fillOpacity: 0.8
