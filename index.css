@@ -97,8 +97,7 @@ p {
 }
 
 .arrow {
-    width: 9px;
-    height: 9px;
-    border: #000 solid 1px;
+    width: 0;
+    height: 0;
     position: absolute;
 }
