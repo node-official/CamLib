@@ -1,5 +1,3 @@
-// Copyright Node, 2025.
-
 // CAM LIST
 
 const URL = 'https://cors-anywhere.herokuapp.com/https://cams.is74.ru/api/limited-info';
@@ -122,9 +120,9 @@ let map;
 const trackList = new Map();
 
 const typeColors = {
-    1: '#29cc54', // Троллейбус
-    3: '#4aa4e8', // Трамвай
-    4: '#e8894a', // Автобус
+    0: '#1c54ed', // Автобус
+    1: '#ed271c', // Троллейбус
+    3: '#3ced1c', // Трамвай
     DEFAULT: '#b3b3b3'
 };
 
@@ -137,6 +135,14 @@ const mapContainer = document.getElementById('camera-map');
 
 function getColorByType(type) {
     return typeColors[type] || typeColors.DEFAULT;
+}
+
+function getTypeName(type) {
+    if(type === 0) return 'Bus';
+    if(type === 1) return 'Trolleybus';
+    if(type === 3) return 'Tram';
+
+    return 'Unknown';
 }
 
 function UpdateOrCreateTrackMarker(entry) {
@@ -224,7 +230,7 @@ function AddTransportMarker(entry) {
         fillOpacity: 0.8
     });
 
-    marker.bindTooltip(entry.route, {
+    marker.bindTooltip(`<div title="${getTypeName(entry.type)} - ${entry.speed} km/h">${entry.route}</div>`, {
         permanent: true,
         direction: 'center',
         className: 'route-label no-background'
