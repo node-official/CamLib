@@ -27,7 +27,7 @@ p {
 .video-modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 1008;
     left: 0;
     top: 0;
     width: 100%;
@@ -96,7 +96,6 @@ p {
     left: 2px;
 }
 
-/* O-O /) Hate that, please. */
 .arrow {
     width: 0;
     height: 0;

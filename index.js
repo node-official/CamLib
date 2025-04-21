@@ -67,7 +67,7 @@ function LoadCamList() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer fba474c31ffe22d038ae5c377f12099e', // This token set up for public. Only have access to view cameras. So I don't care about leak. :D
+            'Authorization': 'Bearer fba474c31ffe22d038ae5c377f12099e', // Only has access to view cameras, so I don't care about leaks. :D
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36',
             'Origin': 'https://stream.is74.ru',
             'Referer': 'https://stream.is74.ru/'
@@ -131,6 +131,13 @@ const typeColors = {
     DEFAULT: '#b3b3b3'
 };
 
+const typeNames = {
+    0: 'Bus',
+    1: 'Trolleybus',
+    3: 'Tram',
+    DEFAULT: 'Unknown'
+};
+
 let cameraLayer; // Cameras
 let transportLayer; // GPS Tracking
 
@@ -143,11 +150,7 @@ function getColorByType(type) {
 }
 
 function getTypeName(type) {
-    if(type === 0) return 'Bus';
-    if(type === 1) return 'Trolleybus';
-    if(type === 3) return 'Tram';
-
-    return 'Unknown';
+    return typeNames[type] || typeNames.DEFAULT;
 }
 
 function UpdateOrCreateTrackMarker(entry) {
