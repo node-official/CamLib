@@ -227,7 +227,7 @@ function AddTransportMarker(entry) {
     marker.bindTooltip(entry.route, {
         permanent: true,
         direction: 'center',
-        className: 'route-label'
+        className: 'route-label no-background'
     });
 
     marker.addTo(transportLayer);
@@ -276,4 +276,4 @@ LoadCamList();
 
 // City Transport Data
 FetchAndUpdateTrackData();
-setInterval(FetchAndUpdateTrackData, 15000);
+setInterval(FetchAndUpdateTrackData, 30000);
