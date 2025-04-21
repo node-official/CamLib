@@ -120,9 +120,9 @@ let map;
 const trackList = new Map();
 
 const typeColors = {
-    0: '#1c54ed', // Автобус
-    1: '#ed271c', // Троллейбус
-    3: '#3ced1c', // Трамвай
+    0: '#196dc2', // Автобус
+    1: '#d92c23', // Троллейбус
+    3: '#16b84c', // Трамвай
     DEFAULT: '#b3b3b3'
 };
 
@@ -223,17 +223,26 @@ function AddCameraMarker(lat, lon, title, hls_link) {
 function AddTransportMarker(entry) {
     const color = getColorByType(entry.type);
 
-    const marker = L.circleMarker([entry.lat, entry.lng], {
-        radius: 12,
-        color: color,
-        fillColor: color,
-        fillOpacity: 0.8
+    const markerTemplate = `
+        <div class="transport-marker" style="position: relative; transform: rotate(${45 + entry.direction}deg);">
+            <div class="circle" style="background-color: ${color};"></div>
+            <div class="arrow" style="border-color: ${color};"></div>
+        </div>
+    `;
+
+    const markerIcon = L.divIcon({
+        className: 'custom-icon',
+        html: markerTemplate,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12]
     });
 
-    marker.bindTooltip(`<div title="${getTypeName(entry.type)} - ${entry.speed} km/h">${entry.route}</div>`, {
+    const marker = L.marker([entry.lat, entry.lng], { icon: markerIcon });
+
+    marker.bindTooltip(`<div title="${getTypeName(entry.type)} - ${entry.speed} km/h"><span class="route-label">${entry.route}</span></div>`, {
         permanent: true,
         direction: 'center',
-        className: 'route-label no-background'
+        className: 'no-background'
     });
 
     marker.addTo(transportLayer);
@@ -281,5 +290,5 @@ LoadMap();
 LoadCamList();
 
 // City Transport Data
-FetchAndUpdateTrackData();
-setInterval(FetchAndUpdateTrackData, 30000);
+//FetchAndUpdateTrackData();
+//setInterval(FetchAndUpdateTrackData, 30000);
