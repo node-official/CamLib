@@ -168,8 +168,8 @@ function parseLine(line) {
     return {
         type: TYPE,
         route: ROUTE_NUM,
-        lng: LNG,
-        lat: LAT,
+        lng: LNG / 1e6,
+        lat: LAT / 1e6,
         speed: SPEED,
         id: ID
     };
@@ -253,7 +253,7 @@ function LoadMap() {
 function FetchAndUpdateTrackData() {
     const currentTime = Date.now();
 
-    fetch(`https://api.example.com/gps.txt?${currentTime}`)
+    fetch(`https://gortrans74.ru/gps.txt?${currentTime}`)
     .then(response => response.text())
     .then(parseResponseText)
     .catch(error => console.error(error));
