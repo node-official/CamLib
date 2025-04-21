@@ -97,13 +97,8 @@ p {
 }
 
 .arrow {
-    width: 0;
-    height: 0;
-    border: solid black;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
+    width: 9px;
+    height: 9px;
+    border: #000 solid 1px;
     position: absolute;
-    top: -8px;
-    left: 7px;
 }
